@@ -1,0 +1,60 @@
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[tool.black]
+line-length = 120
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+envlist = py3,security,lint
+
+[testenv]
+deps =
+    pip~=22.1
+    -r{toxinidir}/requirements-tests.txt
+commands=
+    coverage erase
+    pytest --cov=app
+    coverage report -m
+    coverage xml -i
+
+[testenv:py3]
+basepython = python3.12
+recreate = true
+
+[testenv:security]
+basepython = python3.12
+commands =
+    bandit -r app/
+    pip-audit --disable-pip --no-deps --requirement requirements.txt
+
+[testenv:lint]
+basepython = python3.12
+commands =
+    ruff format --check app
+    ruff check app
+
+"""
+
+[tool.ruff]
+line-length = 120
+include = ["pyproject.toml", "src/**/*.py"]
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I", # isort
+    "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+    "ASYNC", # flake8-async
+    "S", # flake8-bandit
+    "DTZ", # flake8-datetimez
+    "SIM", # flake8-simplify
+]
+ignore = [
+    "B008"  # do not perform function calls in argument defaults
+]
