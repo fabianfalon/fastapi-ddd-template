@@ -8,5 +8,5 @@ class CourseFinderUseCase:
     def __init__(self, repository: CourseRepository) -> None:
         self.finder = DomainCourseFinder(repository)
 
-    async def execute(self, course_id: CourseId) -> Course:
+    def execute(self, course_id: CourseId) -> Course:
         return self.finder.execute(course_id)

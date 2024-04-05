@@ -47,7 +47,7 @@ async def create_course(
     title = payload.title
     duration = payload.duration
     course = await controller.execute(str(uuid4()), title, duration)
-    return CourseOut(id=course.id, **course.to_primitive())
+    return CourseOut(**course.to_primitive())
 
 
 @router.get(
@@ -64,5 +64,4 @@ async def get_course_by_id(
         course = await controller.execute(CourseId(course_id))
     except CourseNotFound as exc:
         raise CourseNotFound(course_id) from exc
-    course = course.to_primitive()
-    return CourseOut(id=course.get("course_id"), **course)
+    return CourseOut(**course.to_primitive())
