@@ -5,5 +5,4 @@ class ControllerInterfaz[T](ABC):
     """ControllerInterfaz"""
 
     @abstractmethod
-    def execute(self, *args, **kwargs) -> T:
-        ...
+    def execute(self, *args, **kwargs) -> T: ...

@@ -4,7 +4,6 @@ from src.contexts.courses.domain.course import Course
 
 
 class ListCourseController(ControllerInterfaz):
-
     def __init__(self, repository):
         self.repository = repository
 

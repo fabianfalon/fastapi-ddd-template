@@ -7,7 +7,6 @@ from src.contexts.shared.domain.value_objects.course_id import CourseId
 
 
 class CourseFinderController(ControllerInterfaz):
-
     def __init__(self, repository: CourseRepository) -> None:
         self.repository = repository
 

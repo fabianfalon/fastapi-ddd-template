@@ -23,7 +23,11 @@ class ServerSettings(BaseSettings):
     keep_alive: int = 5
 
 
-class Settings(CommonSettings, ServerSettings): ...
+class LocationSettings(BaseSettings):
+    timezone: str = "Europe/Madrid"
+
+
+class Settings(CommonSettings, ServerSettings, LocationSettings): ...
 
 
 settings = Settings()

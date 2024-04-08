@@ -9,3 +9,20 @@ ___
 
 ### Run test
 ````python -m pytest````
+
+````python -m pytest --cov=src````
+
+# Ruff commands
+Check linters errors
+````ruff check src````
+
+Check format errors
+````ruff format -- check src````
+
+Fix imports order
+
+````ruff --fix src````
+
+Fix file format
+
+````ruff format src````

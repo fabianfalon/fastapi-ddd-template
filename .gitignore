@@ -33,3 +33,4 @@ venv
 .AppleDouble
 .LSOverride
 ._*
+.coverage

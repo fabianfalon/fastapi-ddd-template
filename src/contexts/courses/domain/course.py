@@ -2,6 +2,9 @@
 
 from datetime import datetime
 
+import pytz
+
+from src.config import settings
 from src.contexts.courses.domain.value_objects.course_duration import CourseDuration
 from src.contexts.courses.domain.value_objects.course_title import CourseTitle
 from src.contexts.shared.aggregate_root import AggregateRoot
@@ -26,8 +29,8 @@ class Course(AggregateRoot):
         self._id = CourseId(course_id)
         self._title = CourseTitle(title)
         self._duration = CourseDuration(duration)
-        self.created_at = datetime.now() if not created_at else created_at
-        self.updated_at = datetime.now() if not updated_at else updated_at
+        self.created_at = datetime.now(tz=pytz.timezone(settings.timezone)) if not created_at else created_at
+        self.updated_at = datetime.now(tz=pytz.timezone(settings.timezone)) if not updated_at else updated_at
 
     @property
     def id(self):
@@ -44,12 +47,13 @@ class Course(AggregateRoot):
     @staticmethod
     def create(course_id, title, duration):
         """Creates a new Course."""
+        tz = pytz.timezone(settings.timezone)
         course = Course(
             course_id=course_id,
             title=title,
             duration=duration,
-            updated_at=datetime.now(),
-            created_at=datetime.now(),
+            updated_at=datetime.now(tz=tz),
+            created_at=datetime.now(tz=tz),
         )
 
         # logic to public domain event

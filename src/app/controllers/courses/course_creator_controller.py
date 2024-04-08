@@ -7,12 +7,9 @@ from src.contexts.courses.domain.course_repository import CourseRepository
 
 
 class CourseCreateController(ControllerInterfaz):
-
     def __init__(self, repository: CourseRepository):
         self.repository = repository
 
     async def execute(self, course_id, title, duration) -> Course:
-        course = await CourseCreatorUseCase(repository=self.repository).execute(
-            str(uuid4()), title, duration
-        )
+        course = await CourseCreatorUseCase(repository=self.repository).execute(str(uuid4()), title, duration)
         return course
