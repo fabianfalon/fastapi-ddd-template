@@ -12,7 +12,8 @@ class CourseFinderController(ControllerInterfaz):
 
     async def execute(self, course_id: CourseId) -> Course:
         try:
-            course = CourseFinderUseCase(repository=self.repository).execute(course_id)
+            course_finder_use_case = CourseFinderUseCase(repository=self.repository)
+            course = await course_finder_use_case.execute(course_id)
         except Exception as error:
             raise CourseNotFound(course_id.value) from error
         return course

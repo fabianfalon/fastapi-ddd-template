@@ -9,10 +9,10 @@ class CourseCreatorUseCase:
         self.repository = repository
 
     async def execute(self, course_id: str, title: str, duration: float):
-        recorded = self.repository.find_one_by_title(CourseTitle(title).value.lower().strip())
+        recorded = await self.repository.find_one_by_title(CourseTitle(title).value.lower().strip())
         if recorded:
             raise CourseAlreadyExits()
 
         course = Course.create(course_id, title, duration)
-        self.repository.save(course)
+        await self.repository.save(course)
         return course
