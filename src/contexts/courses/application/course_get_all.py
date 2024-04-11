@@ -5,6 +5,6 @@ class CourseGetAllUseCase:
     def __init__(self, repository: CourseRepository) -> None:
         self.repository = repository
 
-    def execute(self):
-        courses = self.repository.find_all()
+    async def execute(self):
+        courses = await self.repository.find_all()
         return courses

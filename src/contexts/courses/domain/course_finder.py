@@ -8,8 +8,8 @@ class CourseFinder:
     def __init__(self, repository: CourseRepository) -> None:
         self.repository = repository
 
-    def execute(self, course_id: CourseId) -> Course:
-        course = self.repository.find_one(course_id.value)
+    async def execute(self, course_id: CourseId) -> Course:
+        course = await self.repository.find_one(course_id.value)
         if not course:
             raise CourseNotFound(course_id.value)
         return course
