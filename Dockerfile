@@ -1,16 +1,12 @@
 FROM python:3.12
 
-# Establece el directorio de trabajo en /app
 WORKDIR /app
 
-# Copia el archivo requirements.txt al contenedor en /app
 COPY requirements.txt .
 
-# Instala las dependencias especificadas en requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copia el resto de la aplicación al contenedor en /app
-COPY . .
+COPY . /app
 
 EXPOSE 5000
 

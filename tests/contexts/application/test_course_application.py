@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 import pytest
-from expects import be_above_or_equal, equal, expect, raise_error
+from expects import be_above_or_equal, equal, expect
 
 from src.app.routes.dependencies import get_course_repository
 from src.contexts.courses.application.course_creator import CourseCreatorUseCase
