@@ -23,14 +23,14 @@ class Course(AggregateRoot):
         course_id: str,
         title: str,
         duration: float,
-        created_at: None,
-        updated_at: None,
+        created_at: datetime = None,
+        updated_at: datetime = None,
     ) -> None:
         self._id = CourseId(course_id)
         self._title = CourseTitle(title)
         self._duration = CourseDuration(duration)
-        self.created_at = datetime.now(tz=pytz.timezone(settings.timezone)) if not created_at else created_at
-        self.updated_at = datetime.now(tz=pytz.timezone(settings.timezone)) if not updated_at else updated_at
+        self.created_at = created_at if created_at else datetime.now(tz=pytz.timezone(settings.timezone))
+        self.updated_at = updated_at if updated_at else datetime.now(tz=pytz.timezone(settings.timezone))
 
     @property
     def id(self):
