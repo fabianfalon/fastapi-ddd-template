@@ -1,16 +1,16 @@
-from typing import List, NoReturn, Optional
+from typing import List, Optional
 
 from src.contexts.courses.domain.course import Course
 from src.contexts.courses.domain.course_repository import CourseRepository
 
 
 class InMemoryRepository(CourseRepository):
-    def delete(self, course_id: str) -> NoReturn:
+    def delete(self, course_id: str) -> None:
         print("mock delete")
 
     _courses: List[Course] = []
 
-    async def save(self, course: Course) -> NoReturn:
+    async def save(self, course: Course) -> None:
         self._courses.append(course)
 
     async def find_one(self, course_id: str) -> Optional[Course]:

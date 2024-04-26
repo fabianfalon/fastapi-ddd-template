@@ -9,10 +9,8 @@ from src.app.controllers.courses.course_list_controller import ListCourseControl
 from src.app.routes.dependencies import (
     get_course_creator_controller,
     get_course_finder_controller,
-    get_course_repository,
     get_list_course_controller,
 )
-from src.contexts.courses.domain.course_repository import CourseRepository
 from src.contexts.courses.domain.errors.course_already_exists import CourseAlreadyExits
 from src.contexts.courses.domain.errors.course_not_found import CourseNotFound
 from src.contexts.courses.infrastructure.dto.course_dto import CourseIn, CourseListResponse, CourseOut
@@ -31,7 +29,6 @@ router = APIRouter(tags=["Courses"])
 )
 async def get_courses(
     controller: ListCourseController = Depends(get_list_course_controller),
-    repository: CourseRepository = Depends(get_course_repository),
 ) -> CourseListResponse:
     courses = await controller.execute()
     courses = [CourseOut(**course.to_primitive()) for course in courses]
@@ -47,7 +44,6 @@ async def get_courses(
 async def create_course(
     payload: CourseIn,
     controller: CourseCreateController = Depends(get_course_creator_controller),
-    repository: CourseRepository = Depends(get_course_repository),
 ) -> CourseOut:
     title = payload.title
     duration = payload.duration
@@ -67,7 +63,6 @@ async def create_course(
 async def get_course_by_id(
     course_id: str,
     controller: CourseFinderController = Depends(get_course_finder_controller),
-    repository: CourseRepository = Depends(get_course_repository),
 ) -> CourseOut:
     try:
         course = await controller.execute(CourseId(course_id))
